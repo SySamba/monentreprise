@@ -694,6 +694,7 @@
       position: relative;
       display: inline-block;
     }
+    
 
     .footer-column h3::after {
       content: '';
@@ -853,6 +854,12 @@
       nav ul.active {
         right: 0;
       }
+      .stat-number {
+          font-size: 2rem;
+         font-weight: bold;
+          transition: all 0.3s ease-in-out;
+        }
+
 
       .hero {
         height: auto;
@@ -931,23 +938,24 @@
     </p>
     
     <div class="stats">
-      <div class="stat-item">
-        <div class="stat-number">5+</div>
-        <div class="stat-label">Secteurs d'activité</div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="5">0</div>
+          <div class="stat-label">Secteurs d'activité</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="50">0</div>
+          <div class="stat-label">Clients satisfaits</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="10">0</div>
+          <div class="stat-label">Partenariats</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" data-target="100">0</div>
+          <div class="stat-label">Engagement qualité</div>
+        </div>
       </div>
-      <div class="stat-item">
-        <div class="stat-number">50+</div>
-        <div class="stat-label">Clients satisfaits</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">10+</div>
-        <div class="stat-label">Partenariats</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">Engagement qualité</div>
-      </div>
-    </div>
+      
   </section>
 
   <section id="services" class="services">
@@ -1274,6 +1282,30 @@
         heroSection.querySelector('.floating-elements').appendChild(element);
       }
     }
+
+
+
+    const counters = document.querySelectorAll('.stat-number');
+
+  counters.forEach(counter => {
+    const updateCount = () => {
+      const target = +counter.getAttribute('data-target');
+      const count = +counter.innerText;
+
+      const speed = 100; // Plus le chiffre est petit, plus l'animation est rapide
+
+      const increment = Math.ceil(target / speed);
+
+      if (count < target) {
+        counter.innerText = count + increment;
+        setTimeout(updateCount, 50);
+      } else {
+        counter.innerText = target + (target !== 100 ? '+' : '%');
+      }
+    };
+
+    updateCount();
+  });
   </script>
 
 </body>
